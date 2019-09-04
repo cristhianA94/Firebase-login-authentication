@@ -1,0 +1,24 @@
+<div class="container w-75">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">
+                <i class="fas fa-database"></i> Database Items
+            </h2>
+            <hr>
+            <ul class="list-group">
+                <h3 class="text-center">Persona</h3>
+                <li class="list-group-item list-group-item-success" *ngFor="let item of persona | async">
+                    Nombre: {{item.nombre}}
+                    <hr> Apellido: {{item.apellido}}
+                </li>
+            </ul>
+            <hr>
+            <ul class="list-group">
+                <h3 class="text-center">Empresa</h3>
+                <li class="list-group-item list-group-item-info" *ngFor="let item of empresa | async">
+                    {{item.nombre}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
