@@ -19,12 +19,15 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 //import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-//import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 /* Rutas */
+//corregir esto 
 import { APP_ROUTING } from './app.routes';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -42,11 +45,16 @@ import { APP_ROUTING } from './app.routes';
     BrowserModule,
     APP_ROUTING,
     AngularFireModule.initializeApp(environment.firebase), //inicializa conexcion Firebase
-
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     //NgxAuthFirebaseUIModule
     //AngularFireStorageModule // imports firebase/storage only needed for storage features
+    // modulos para usar formularios
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    // modulo de angular material
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
