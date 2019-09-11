@@ -2,6 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+/* Rules Firebase original:
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write;
+    }
+  }
+}
+
+*/
 // Firebase API connect
 export const environment = {
   production: false,
@@ -11,7 +23,6 @@ export const environment = {
     databaseURL: "https://fir-auth-web-75274.firebaseio.com",
     projectId: "fir-auth-web-75274",
     storageBucket: "",
-    messagingSenderId: "10805534927",
-    appId: "1:10805534927:web:43d05b00ff7672b4"
+    messagingSenderId: "10805534927"
   }
 };

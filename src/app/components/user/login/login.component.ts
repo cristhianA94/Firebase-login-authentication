@@ -1,6 +1,11 @@
 import { Component} from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+
+/* Firebase */
+import { AngularFireAuth} from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+
+
+
 
 
 
@@ -9,7 +14,9 @@ import { auth } from 'firebase/app';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent{
+
+export class LoginComponent {
+
   constructor(public afAuth: AngularFireAuth) {
   }
   login() {

@@ -1,0 +1,85 @@
+<!-- <ngx-auth-firebaseui (onSuccess)="printUser($event)" (onError)="printError()">
+</ngx-auth-firebaseui> -->
+
+<div class="row justify-content-center">
+    <h2 class="alert alert-info text-center w-25">
+        <img width="150" src="https://cdn3.iconfinder.com/data/icons/web-ui-color/128/Lock_green-512.png" alt="Lock"><br>
+    </h2>
+</div>
+<hr>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 text-center">
+
+        <!-- ////////////////////////// -->
+        <form class="alert alert-secondary">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese email">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-success mt-2 mb-2"><i class="fas fa-sign-in-alt"> Acceder</i></button>
+            <br>
+            <a [routerLink]="['/login']">¿Olvidaste tu contraseña?</a>
+
+        </form>
+        <hr class="my-4">
+        <small class="lead">O puedes ingresar con tus redes sociales:</small>
+        <br>
+        <div *ngIf="afAuth.user | async as user; else showLogin ">
+            <h1>Hello {{ user.displayName }}!</h1>
+            <button (click)="logout() ">Logout</button>
+        </div>
+
+        <ng-template #showLogin>
+            <button class="btn btn-danger btn-block mt-3" (click)="login() ">Login with
+            <i class="fab fa-google " aria-hidden="true "> Google</i>
+            </button>
+        </ng-template>
+
+        <button class="bg-pr " id="facebook-in " class="btn btn-info btn-block " type="button ">Login
+            <i class="fab fa-facebook " aria-hidden="true "> Facebook</i>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
+    document.getElementById("facebook-in ").addEventListener('click',
+        function() {
+            var provider = new firebase.auth.FacebookAuthProvider();
+            //firebase.auth().languageCode = 'en_EN';
+            provider.setCustomParameters({
+                'display': 'popup'
+            });
+
+            firebase.auth().getRedirectResult().then(function(result) {
+                if (result.credential) {
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // ...
+                }
+                // The signed-in user info.
+                var user = result.user;
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            })
+        }
+    )
+</script>
