@@ -9,7 +9,6 @@ import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { LoginComponent } from './components/user/login/login.component';
-import { RegisterComponent } from './components/user/register/register.component';
 //import { ProfileComponent } from './components/users/profile/profile.component';
 
 /* Firebase */
@@ -19,8 +18,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 //import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+/* Angular Material */
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -38,8 +38,7 @@ import { MaterialModule } from './material.module';
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent,
-    //ProfileComponent
+  //ProfileComponent
   ],
   imports: [
     BrowserModule,
