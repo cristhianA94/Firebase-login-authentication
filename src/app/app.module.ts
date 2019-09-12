@@ -22,12 +22,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 /* Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-
-/* Rutas */
-//corregir esto 
-import { APP_ROUTING } from './app.routes';
+import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './material.module';
+/* Rutas */
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -38,19 +36,22 @@ import { MaterialModule } from './material.module';
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-  //ProfileComponent
+    // ProfileComponent
   ],
   imports: [
     BrowserModule,
-    APP_ROUTING,
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase), //inicializa conexcion Firebase
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    //NgxAuthFirebaseUIModule
-    //AngularFireStorageModule // imports firebase/storage only needed for storage features
-    // modulos para usar formularios
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }
+    ),
     FormsModule,
     // modulo de angular material
     MaterialModule

@@ -17,6 +17,7 @@ import {
   MatCardModule,
   MatProgressBarModule,
   MatTabsModule,
+  MatToolbarModule,
 } from '@angular/material';
 
 const modules = [
@@ -37,6 +38,7 @@ const modules = [
   MatCardModule,
   MatProgressBarModule,
   MatTabsModule,
+  MatToolbarModule,
 ]
 @NgModule({
   imports: [...modules],

@@ -5,9 +5,15 @@
 
 
 /* Iconos */
+/* 
 
+ AQUI SOLO DECLARA ESTILOS GLOBALES
+
+
+*/
 @import "~@fortawesome/fontawesome-free/css/all.css";
-body {
+@import '~ngx-toastr/toastr';
+/* body {
     padding-top: 5%;
 }
 
@@ -16,11 +22,11 @@ footer {
     position: relative;
     bottom: 0%;
     width: 100%;
-}
+} */
 
 
 /* Animaciones */
-
+/* 
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -46,4 +52,4 @@ footer {
 
 .fadeIn {
     animation-name: fadeIn;
-}
+} */

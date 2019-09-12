@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 // import { UserInterface, Rol } from '../../clases/usuario';
 import { map } from 'rxjs/operators';
+import { AlertaService } from '../alerta/alerta.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,18 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     private router: Router,
     private afs: AngularFirestore,
+    private alerta: AlertaService,
   ) {
   }
 
   loginCorreo(data) {
     return this.afAuth.auth.signInWithEmailAndPassword(data.correo, data.clave).then(value => {
       console.log('Nice, it worked!');
-      this.router.navigate(['/dashboard']);
+      this.alerta.mensajeExito('Exito!', 'Acceso al sistema.');
+      this.router.navigate(['/home']);
     })
       .catch(err => {
+        this.alerta.mensajeError('Error', err.message);
         console.log('Something went wrong:', err.message);
       });
   }
@@ -63,17 +67,22 @@ export class AuthService {
   }
 
   registerUser(user) {
-    // let rol = user.rol
+    // asignas valor ddel formulario a variable
+    const usuarioForm = user;
     return new Promise((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(user.correo, user.clave)
-        .then(userData => {
+        .then(userData => { // una vez que guarda los datos, retrna info desde la bd y eso se envia al metodo
           resolve(userData),
             console.log('usuario creado!');
-          this.updateUserData(userData.user);
-        }).catch(err => console.log(reject(err)))
+          this.updateUserData(userData.user, usuarioForm);
+        }).catch(err => {
+          console.log(reject(err))
+          this.alerta.mensajeExito('Error', err);
+
+        })
     });
   }
-  
+
   actualizarUsuario(user, uid) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`usuario/${uid}`);
     return userRef.set(user, { merge: true })
@@ -91,18 +100,31 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
       .then(credential => this.updateUserData(credential.user))
   }
-  // Metodo que crea usuarip regisrado en firestore
-  private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`usuario/${user.uid}`);
-    const data: any = {
+  // Metodo que crea usuario regisrado en firestore
+  // el ? al final del valor (usuarioForm?) quiere decir que es una variable opcional que pede recibir la funcion
+  private updateUserData(user, usuarioForm?) {
+    // si se registra por el formulario de registro asigan valor a la variable formulario,
+    // si el login es por fb, google etc. solo se agregan valores como id, email y rol que esta quemado
+    const formulario = (usuarioForm) ? usuarioForm : undefined;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`usuarios/${user.uid}`);
+    const data = {
       id: user.uid,
-      nombres: user.nombre,
       email: user.email,
       roles: {
         editor: false
       }
+    };
+    if (formulario) {
+      // eliminas correo del obeto para que no se duplique
+      delete formulario.correo;
+      // agregas valores del formulario de resgistro
+      Object.assign(data, formulario);
+      console.log('TCL: AuthService -> updateUserData -> formulario', data);
     }
-    return userRef.set(data, { merge: true })
+    userRef.set(data, { merge: true }).then(() => {
+      this.alerta.mensajeExito('Exito!', 'Usuario creado correctamente');
+      this.router.navigate(['/home']);
+    });
   }
 
 }
@@ -121,7 +143,7 @@ export class AuthService {
   // isUserAdmin(userUid) {
   //   return this.afs.doc<UserInterface>(`usuario/${userUid}`).valueChanges();
   // }
-  
+
 
 
 

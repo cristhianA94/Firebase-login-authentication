@@ -15,19 +15,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   /* Componentens A. Material */
   loginForm: FormGroup;
   registroForm: FormGroup;
-  
+
   hide = true;
 
   /* Formulario sexo */
   required: boolean;
   sexo: string;
   genero: string[] = ['Hombre',
-   'Mujer'];
+    'Mujer'];
 
   constructor(
     // crear servicio nunca declarar en los componenes, solo se debe llamar al servicio
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit{
     private router: Router,
     // servicio creado donde esta la logia de autenticacion
     private authService: AuthService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -58,16 +58,16 @@ export class LoginComponent implements OnInit{
   loginFb() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
-  
+
   logout() {
     this.afAuth.auth.signOut();
   }
 
   login() {
     this.authService.loginCorreo(this.loginForm.value);
-  } 
+  }
 
-  registro(){
+  registro() {
     console.log(this.registroForm.value)
     this.authService.registerUser(this.registroForm.value);
   }
